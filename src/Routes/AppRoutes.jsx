@@ -13,7 +13,8 @@ function AppRoutes() {
         <Route path='/' element={<Books />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Route path='/books/:bookId' element={<SingleBook />} />
+        <Route path='/books/:id' element={<SingleBook />} />
+        {/* not sure if this should be /books/:bookId */}
         <Route path='/account' element={<Account />} />
       </Routes>
     </>
