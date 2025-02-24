@@ -11,3 +11,7 @@ body {
 }
 
 /* Add your own custom styles here */
+
+img {
+  width: 250px;
+}

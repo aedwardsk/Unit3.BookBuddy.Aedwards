@@ -4,6 +4,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchBooks } from "../API";
+import fallbackImage from "../assets/books.png";
 
 // Dummy data for initial render
 const dummyBooks = [
@@ -35,13 +36,20 @@ function Books() {
 
   return (
     <div>
-      <h1 className='books-heading'>Library Books</h1>
+      <h1 className='books-heading'>Books</h1>
       <div className='books-container'>
         {books.length > 0 ? (
           books.map((book) => (
             <div key={book.id} className='book-card'>
-              <img src={book.coverimage} alt={`Image of ${book.title}`} />
               <h4>{book.title}</h4>
+              <img
+                src={book.coverimage || fallbackImage}
+                alt={`Image of ${book.title}`}
+                onError={(e) => {
+                  e.target.src = fallbackImage;
+                }}
+              />
+
               <p>by {book.author}</p>
               <p>{book.available ? "Available" : "Not Available"}</p>
               <button type='button' onClick={() => handleClick(book.id)}>

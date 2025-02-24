@@ -13,3 +13,17 @@ export async function fetchBooks() {
     console.error("Failed to fetch books", error);
   }
 }
+
+//fetch single book function
+export async function fetchBook(id) {
+  try {
+    const response = await fetch(`${API_URL}/books/${id}`);
+    if (!response.ok) {
+      throw new Error("Failed to fetch book");
+    }
+    const data = await response.json();
+    return data.book;
+  } catch (error) {
+    console.error("Failed to fetch book", error);
+  }
+}
