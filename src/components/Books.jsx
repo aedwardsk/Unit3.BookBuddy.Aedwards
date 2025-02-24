@@ -35,14 +35,24 @@ function Books() {
 
   return (
     <div>
-      <h2>Books Page</h2>
-      <ul>
-        {books.map((book) => (
-          <li key={book.id} onClick={() => handleClick(book.id)}>
-            {book.title} by {book.author}
-          </li>
-        ))}
-      </ul>
+      <h1 className='books-heading'>Library Books</h1>
+      <div className='books-container'>
+        {books.length > 0 ? (
+          books.map((book) => (
+            <div key={book.id} className='book-card'>
+              <img src={book.coverimage} alt={`Image of ${book.title}`} />
+              <h4>{book.title}</h4>
+              <p>by {book.author}</p>
+              <p>{book.available ? "Available" : "Not Available"}</p>
+              <button type='button' onClick={() => handleClick(book.id)}>
+                See Book Details
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>Loading books...</p>
+        )}
+      </div>
     </div>
   );
 }
