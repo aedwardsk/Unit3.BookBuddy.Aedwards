@@ -32,7 +32,7 @@ function SingleBook() {
       <div className='single-book-container'>
         {book ? (
           <div key={book.id} className='single-book-card'>
-            <h4>{book.title}</h4>
+            <h2>{book.title}</h2>
             <img
               src={book.coverimage || fallbackImage}
               alt={`Image of ${book.title}`}
