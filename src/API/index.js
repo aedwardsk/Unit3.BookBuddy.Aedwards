@@ -27,3 +27,28 @@ export async function fetchBook(id) {
     console.error("Failed to fetch book", error);
   }
 }
+
+export async function registerUser(firstname, lastname, email, password) {
+  try {
+    const response = await fetch(`${API_URL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to register user");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to register user", error);
+    throw error;
+  }
+}
