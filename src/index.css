@@ -49,3 +49,13 @@ img {
   text-align: center;
   margin: 20px 0;
 }
+
+a.title {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.title:hover #logo-image :hover {
+  /* color: rgb(243, 146, 28); */
+  background-color: rgba(73, 169, 221, 0.1);
+}
