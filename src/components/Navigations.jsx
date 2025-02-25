@@ -3,11 +3,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import bookLogo from "../assets/books.png";
+import SearchBar from "./SearchBar";
 
-export default function Navigations() {
+export default function Navigations({ onSearch, clearSearch }) {
   return (
     <nav>
-      <Link to='/' className='title'>
+      <Link to='/' onClick={clearSearch} className='title'>
         <h1>
           <img id='logo-image' src={bookLogo} alt='Library App Logo' />
           Library App
@@ -15,7 +16,9 @@ export default function Navigations() {
       </Link>
       <ul className='nav-links'>
         <li>
-          <Link to='/'>Books</Link>
+          <Link to='/' onClick={clearSearch}>
+            Books
+          </Link>
         </li>
         <li>
           <Link to='/login'>Login</Link>
@@ -25,6 +28,9 @@ export default function Navigations() {
         </li>
         <li>
           <Link to='/account'>Account</Link>
+        </li>
+        <li>
+          <SearchBar onSearch={onSearch} onClick={clearSearch} />
         </li>
       </ul>
     </nav>

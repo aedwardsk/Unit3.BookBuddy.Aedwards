@@ -7,13 +7,14 @@ import { fetchBooks } from "../API";
 import fallbackImage from "../assets/books.png";
 
 // Dummy data for initial render
-const dummyBooks = [
-  { id: 1, title: "Dummy Book 1", author: "Author A" },
-  { id: 2, title: "Dummy Book 2", author: "Author B" },
-];
+// const dummyBooks = [
+//   { id: 1, title: "Dummy Book 1", author: "Author A" },
+//   { id: 2, title: "Dummy Book 2", author: "Author B" },
+// ];
 
-function Books() {
-  const [books, setBooks] = useState(dummyBooks);
+function Books({ searchQuery }) {
+  const [books, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +30,16 @@ function Books() {
     getBooks();
   }, []);
 
+  // Handling search functionality
+
+  useEffect(() => {
+    if (!searchQuery) {
+      setFilteredBooks(books);
+    } else {
+      setFilteredBooks(books.filter((book) => book.title.toLowerCase().includes(searchQuery.toLowerCase())));
+    }
+  }, [searchQuery, books]);
+
   // Handling clicking on book for single view details.
   const handleClick = async (id) => {
     navigate(`/books/${id}`);
@@ -38,8 +49,8 @@ function Books() {
     <div>
       <h1 className='books-heading'>Books</h1>
       <div className='books-container'>
-        {books.length > 0 ? (
-          books.map((book) => (
+        {filteredBooks.length > 0 ? (
+          filteredBooks.map((book) => (
             <div key={book.id} className='book-card'>
               <h4>{book.title}</h4>
               <img
@@ -49,7 +60,6 @@ function Books() {
                   e.target.src = fallbackImage;
                 }}
               />
-
               <p>by {book.author}</p>
               <p>{book.available ? "Available" : "Not Available"}</p>
               <button type='button' onClick={() => handleClick(book.id)}>
