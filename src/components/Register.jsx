@@ -21,9 +21,9 @@ function Register() {
     try {
       const data = await registerUser(formData.firstname, formData.lastname, formData.email, formData.password);
       console.log("User registered successfully", data);
-      // Store the token in local storage or state
+      // Store the token storage
       localStorage.setItem("token", data.token);
-      // Optionally, you can store other user details as well
+      //  user details
       localStorage.setItem("user", JSON.stringify(data.user));
     } catch (error) {
       console.error("Failed to register,", error);
@@ -32,7 +32,7 @@ function Register() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className='regForm' onSubmit={handleSubmit}>
         <label htmlFor='firstname'>First Name</label>
         <input
           type='text'

@@ -43,6 +43,8 @@ export async function registerUser(firstname, lastname, email, password) {
       }),
     });
     if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Server error response:", errorData);
       throw new Error("Failed to register user");
     }
     const data = await response.json();

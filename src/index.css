@@ -59,3 +59,11 @@ a.title:hover #logo-image :hover {
   /* color: rgb(243, 146, 28); */
   background-color: rgba(73, 169, 221, 0.1);
 }
+
+.regForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  height: 250px;
+}
