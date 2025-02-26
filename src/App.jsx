@@ -21,7 +21,7 @@ function App() {
         <Navigations onSearch={handleSearch} clearSearch={clearSearch} />
         {/* will need in nav later token={token} setToken={setToken} */}
       </div>
-      <AppRoutes searchQuery={searchQuery} />
+      <AppRoutes searchQuery={searchQuery} token={token} setToken={setToken} />
     </>
   );
 }

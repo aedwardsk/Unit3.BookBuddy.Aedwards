@@ -54,3 +54,28 @@ export async function registerUser(firstname, lastname, email, password) {
     throw error;
   }
 }
+
+export async function loginUser(email, password) {
+  try {
+    const response = await fetch(`${API_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Server error response:", errorData);
+      throw new Error("Failed to login user");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to login user", error);
+    throw error;
+  }
+}
