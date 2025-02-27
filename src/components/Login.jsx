@@ -22,6 +22,11 @@ function Login({ setToken }) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
       setToken(data.token);
+      //passed Empty objects to clear login.
+      setFormData({
+        email: "",
+        password: "",
+      });
     } catch (error) {
       console.error("Failed to log in,", error);
     }

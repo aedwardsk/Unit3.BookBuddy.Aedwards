@@ -45,6 +45,25 @@ function Books({ searchQuery }) {
     navigate(`/books/${id}`);
   };
 
+  const handleAuthAction = (action, bookId) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    const book = books.find((book) => book.id === bookId);
+    if (!book) {
+      alert("Book not found");
+      return;
+    }
+
+    if (!book.available && action === "checked out") {
+      alert("Book not available for checkout");
+    } else {
+      alert(`Book ${bookId} ${action} successfully!`);
+    }
+  };
   return (
     <div>
       <h1 className='books-heading'>Books</h1>
@@ -64,6 +83,12 @@ function Books({ searchQuery }) {
               <p>{book.available ? "Available" : "Not Available"}</p>
               <button type='button' onClick={() => handleClick(book.id)}>
                 See Book Details
+              </button>
+              <button type='button' onClick={() => handleAuthAction("checked out", book.id)}>
+                Check Out
+              </button>
+              <button type='button' onClick={() => handleAuthAction("returned", book.id)}>
+                Return book
               </button>
             </div>
           ))

@@ -26,6 +26,19 @@ function SingleBook() {
     };
     getBook();
   }, [id]);
+
+  const handleAuthAction = (action) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+    if (!book.available && action === "checked out") {
+      alert("Book not available for checkout");
+    } else {
+      alert(`Book ${action} successfully!`);
+    }
+  };
+
   return (
     <div>
       <h1>Single Book</h1>
@@ -45,6 +58,12 @@ function SingleBook() {
             <p>{book.available ? "Available" : "Not Available"}</p>
             <button type='button' onClick={() => navigate("/")}>
               Back to All books
+            </button>
+            <button type='button' onClick={() => handleAuthAction("checked out")}>
+              Check Out
+            </button>
+            <button type='button' onClick={() => handleAuthAction("returned")}>
+              Return book
             </button>
           </div>
         ) : (
