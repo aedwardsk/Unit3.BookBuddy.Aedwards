@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import bookLogo from "./assets/books.png";
 import AppRoutes from "./Routes/AppRoutes";
 import Navigations from "./components/Navigations";
@@ -6,6 +6,20 @@ import Navigations from "./components/Navigations";
 function App() {
   const [token, setToken] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    if (token) {
+      localStorage.getItem("token");
+    } else {
+      localStorage.removeItem("token");
+    }
+  }, [token]);
+
+  const handleLogout = () => {
+    setToken(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -19,9 +33,8 @@ function App() {
     <>
       <div>
         <Navigations onSearch={handleSearch} clearSearch={clearSearch} />
-        {/* will need in nav later token={token} setToken={setToken} */}
       </div>
-      <AppRoutes searchQuery={searchQuery} token={token} setToken={setToken} />
+      <AppRoutes searchQuery={searchQuery} token={token} setToken={setToken} handleLogout={handleLogout} />
     </>
   );
 }

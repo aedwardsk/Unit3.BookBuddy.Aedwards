@@ -6,7 +6,7 @@ import Books from "../components/Books";
 import Login from "../components/Login";
 import Register from "../components/Register";
 
-function AppRoutes({ searchQuery, token, setToken }) {
+function AppRoutes({ searchQuery, token, setToken, handleLogout }) {
   return (
     <>
       <Routes>
@@ -15,7 +15,7 @@ function AppRoutes({ searchQuery, token, setToken }) {
         <Route path='/register' element={<Register />} />
         <Route path='/books/:id' element={<SingleBook />} />
         {/* not sure if this should be /books/:bookId */}
-        <Route path='/account' element={<Account />} />
+        <Route path='/account' element={<Account handleLogout={handleLogout} />} />
       </Routes>
     </>
   );

@@ -21,7 +21,7 @@ function Books({ searchQuery }) {
     const getBooks = async () => {
       try {
         const fetchedBooks = await fetchBooks();
-        console.log("Fetch books", fetchedBooks);
+        // console.log("Fetch books", fetchedBooks);
         if (fetchedBooks && fetchedBooks.length > 0) setBooks(fetchedBooks);
       } catch (error) {
         console.error("Getting books error on fetch", error);

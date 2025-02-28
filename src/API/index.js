@@ -79,3 +79,23 @@ export async function loginUser(email, password) {
     throw error;
   }
 }
+
+export async function fetchAccount({ token }) {
+  try {
+    const response = await fetch(`${API_URL}/users/me`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed response can't Verify user");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to Verify user", error);
+    throw error;
+  }
+}
