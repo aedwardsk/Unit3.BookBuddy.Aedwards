@@ -99,3 +99,23 @@ export async function fetchAccount({ token }) {
     throw error;
   }
 }
+
+export async function fetchReservations({ token }) {
+  try {
+    const response = await fetch(`${API_URL}/reservations`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed response can't Verify user");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Failed to display reservations", error);
+    throw error;
+  }
+}

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { fetchAccount } from "../API";
+import { fetchReservations } from "../API";
 
 function Account({ handleLogout }) {
   const [account, setAccount] = useState(null);
+  const [resBooks, setResBooks] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -19,6 +21,23 @@ function Account({ handleLogout }) {
       }
     };
     getAccount();
+  }, []);
+
+  useEffect(() => {
+    const getResBooks = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return;
+      }
+      try {
+        const fetchedResBooks = await fetchReservations({ token });
+        console.log("Fetch Reserved books", fetchedResBooks);
+        if (fetchedResBooks && fetchedResBooks.length > 0) setResBooks(fetchedResBooks);
+      } catch (error) {
+        console.error("Getting res books error on fetch", error);
+      }
+    };
+    getResBooks();
   }, []);
 
   if (!localStorage.getItem("token")) {
