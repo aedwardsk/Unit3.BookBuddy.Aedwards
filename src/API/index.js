@@ -88,6 +88,10 @@ export async function fetchAccount({ token }) {
         "Content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      // body: JSON.stringify({
+      //   email: email,
+      //   password: password,
+      // }),
     });
     if (!response.ok) {
       throw new Error("Failed response can't Verify user");
@@ -116,6 +120,47 @@ export async function fetchReservations({ token }) {
     return data;
   } catch (error) {
     console.error("Failed to display reservations", error);
+    throw error;
+  }
+}
+
+export async function updateBookStatus({ token, action, bookId }) {
+  try {
+    const response = await fetch(`${API_URL}/books/${bookId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ action }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to ${action} book`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error(`Failed ${action}`, error);
+    throw error;
+  }
+}
+export async function deleteReservation({ token, reservationId }) {
+  try {
+    const response = await fetch(`${API_URL}/reservations/${reservationId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete reservation");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error deleting reservation", error);
     throw error;
   }
 }
