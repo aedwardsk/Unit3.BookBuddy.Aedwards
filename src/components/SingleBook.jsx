@@ -18,7 +18,7 @@ function SingleBook() {
     const getBook = async () => {
       try {
         const bookData = await fetchBook(id);
-        console.log("Fetched player:", bookData);
+        console.log("Fetched player:");
         setbook(bookData);
       } catch (error) {
         console.error("failed to get book from Database", error);

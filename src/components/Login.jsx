@@ -17,7 +17,7 @@ function Login({ setToken }) {
     e.preventDefault();
     try {
       const data = await loginUser(formData.email, formData.password);
-      console.log("User logged in successfully", data);
+      console.log("User logged in successfully");
       // Store the token and user details
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));

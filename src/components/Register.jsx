@@ -20,7 +20,7 @@ function Register() {
     e.preventDefault();
     try {
       const data = await registerUser(formData.firstname, formData.lastname, formData.email, formData.password);
-      console.log("User registered successfully", data);
+      console.log("User registered successfully");
       // Store the token storage
       localStorage.setItem("token", data.token);
       //  user details
