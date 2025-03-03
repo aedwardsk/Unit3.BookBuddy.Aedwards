@@ -54,12 +54,14 @@ function Account({ handleLogout, updateTrigger, token }) {
     <div>
       <h2>Account Page</h2>
       {account ? (
-        <div>
-          <p>
+        <div className='account-info'>
+          <p className='accInfo'>
             Name: {account.firstname} {account.lastname}
           </p>
-          <p>Email: {account.email}</p>
-          <button onClick={handleLogout}>Logout</button>
+          <p className='accInfo'>Email: {account.email}</p>
+          <button className='accInfo' onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       ) : (
         <p>Loading account details...</p>

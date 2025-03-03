@@ -62,9 +62,6 @@ function SingleBook() {
             <button type='button' onClick={() => handleAuthAction("checked out")}>
               Check Out
             </button>
-            <button type='button' onClick={() => handleAuthAction("returned")}>
-              Return book
-            </button>
           </div>
         ) : (
           <p>Loading Book...</p>

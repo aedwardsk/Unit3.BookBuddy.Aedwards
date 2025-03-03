@@ -1,12 +1,15 @@
 /* TODO - add your code to create a functional React component that renders a login form */
 import React, { useState } from "react";
 import { loginUser } from "../API";
+import { useNavigate } from "react-router-dom";
 
 function Login({ setToken }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -27,8 +30,10 @@ function Login({ setToken }) {
         email: "",
         password: "",
       });
+      navigate("/account");
     } catch (error) {
       console.error("Failed to log in,", error);
+      alert("Incorrect email or password");
     }
   };
 
