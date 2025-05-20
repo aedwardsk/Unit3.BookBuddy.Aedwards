@@ -1,12 +1,12 @@
 /* TODO - add your code to create a functional React component that renders a login form */
-import React, { useState } from "react";
-import { loginUser } from "../API";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { loginUser } from '../API';
+import { useNavigate } from 'react-router-dom';
 
 function Login({ setToken }) {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const navigate = useNavigate();
@@ -20,20 +20,20 @@ function Login({ setToken }) {
     e.preventDefault();
     try {
       const data = await loginUser(formData.email, formData.password);
-      console.log("User logged in successfully");
-      // Store the token and user details
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
+      console.log('User logged in successfully');
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
       setToken(data.token);
-      //passed Empty objects to clear login.
+
       setFormData({
-        email: "",
-        password: "",
+        email: '',
+        password: '',
       });
-      navigate("/account");
+      navigate('/account');
     } catch (error) {
-      console.error("Failed to log in,", error);
-      alert("Incorrect email or password");
+      console.error('Failed to log in,', error);
+      alert('Incorrect email or password');
     }
   };
 

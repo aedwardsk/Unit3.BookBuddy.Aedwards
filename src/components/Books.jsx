@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchBooks, updateBookStatus } from "../API";
-import fallbackImage from "../assets/books.png";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { fetchBooks, updateBookStatus } from '../API';
+import fallbackImage from '../assets/books.png';
 
 function Books({ searchQuery, onBookStatusChange }) {
   const [books, setBooks] = useState([]);
@@ -13,14 +13,15 @@ function Books({ searchQuery, onBookStatusChange }) {
       try {
         const fetchedBooks = await fetchBooks();
         if (fetchedBooks && fetchedBooks.length > 0) setBooks(fetchedBooks);
+        else setBooks([]);
       } catch (error) {
-        console.error("Getting books error on fetch", error);
+        console.error('Getting books error on fetch', error);
+        setBooks([]);
       }
     };
     getBooks();
   }, []);
 
-  // Handling search functionality
   useEffect(() => {
     if (!searchQuery) {
       setFilteredBooks(books);
@@ -29,34 +30,33 @@ function Books({ searchQuery, onBookStatusChange }) {
     }
   }, [searchQuery, books]);
 
-  // Handling clicking on book for single view details.
   const handleClick = async (id) => {
     navigate(`/books/${id}`);
   };
 
   const handleAuthAction = async (action, bookId) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (!token) {
-      navigate("/login");
+      navigate('/login');
       return;
     }
 
     const book = books.find((book) => book.id === bookId);
     if (!book) {
-      alert("Book not found");
+      alert('Book not found');
       return;
     }
 
     try {
-      if (action === "checked out" && !book.available) {
-        alert("Book not available for checkout");
+      if (action === 'checked out' && !book.available) {
+        alert('Book not available for checkout');
         return;
       }
 
       await updateBookStatus({ token, bookId, action });
 
       alert(`Book ${bookId} ${action} successfully!`);
-      setBooks((prevBooks) => prevBooks.map((b) => (b.id === bookId ? { ...b, available: action === "returned" } : b)));
+      setBooks((prevBooks) => prevBooks.map((b) => (b.id === bookId ? { ...b, available: action === 'returned' } : b)));
 
       // Trigger the update in the Account component
       onBookStatusChange();
@@ -70,7 +70,9 @@ function Books({ searchQuery, onBookStatusChange }) {
     <div>
       <h1 className='books-heading'>Books</h1>
       <div className='books-container'>
-        {filteredBooks.length > 0 ? (
+        {books.length === 0 ? (
+          <p>Loading books...</p>
+        ) : filteredBooks.length > 0 ? (
           filteredBooks.map((book) => (
             <div key={book.id} className='book-card'>
               <h4>{book.title}</h4>
@@ -82,17 +84,17 @@ function Books({ searchQuery, onBookStatusChange }) {
                 }}
               />
               <p>by {book.author}</p>
-              <p>{book.available ? "Available" : "Not Available"}</p>
+              <p>{book.available ? 'Available' : 'Not Available'}</p>
               <button type='button' onClick={() => handleClick(book.id)}>
                 See Book Details
               </button>
-              <button type='button' onClick={() => handleAuthAction("checked out", book.id)}>
+              <button type='button' onClick={() => handleAuthAction('checked out', book.id)}>
                 Check Out
               </button>
             </div>
           ))
         ) : (
-          <p>Loading books...</p>
+          <p>No books found.</p>
         )}
       </div>
     </div>
